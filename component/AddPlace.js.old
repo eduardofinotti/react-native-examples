@@ -1,0 +1,107 @@
+
+import React, { Component } from 'react';
+import { ScrollView, Button, View, StyleSheet, Text, TouchableOpacity, ImageBackground, } from 'react-native';
+import ActionButton from 'react-native-action-button'
+import map from '../screens/assets/map.jpeg'
+import RBSheet from "react-native-raw-bottom-sheet";
+
+import React from 'react';
+import { View } from 'react-native';
+
+
+export default function component() {
+  
+        return (
+    <RBSheet
+              ref={ref => {
+                this.Scrollable = ref;
+              }}
+              closeOnDragDown
+              height = { 800 }
+              customStyles={{
+                container: {
+                  borderTopLeftRadius: 10,
+                  borderTopRightRadius: 10
+                }}}>
+              <ScrollView>
+                <View style={styles.gridContainer}>
+
+                    <TouchableOpacity
+                      onPress={() => this.Scrollable.close()}
+                      style={styles.gridButtonContainer}>
+                      <View style={[styles.gridButton, { backgroundColor: '#FFF' }]}>
+
+                      </View>
+                      <Text style={styles.gridLabel}>OI...</Text>
+                    </TouchableOpacity>
+
+                </View>
+              </ScrollView>
+            </RBSheet>
+  );
+            s
+}
+
+const styles = StyleSheet.create({
+    container: {
+      flex: 1, 
+      justifyContent: 'flex-end',
+      alignItems: 'center',
+      backgroundColor: '#F5FCFF',
+      paddingBottom: 30,
+      width: '100%'
+    },
+  
+    welcome: {
+      flex: 1, 
+      fontSize: 20,
+      textAlign: 'center',
+      margin: 10,
+      paddingTop: 50
+    },
+  
+    button: {
+      backgroundColor: '#FF5A36',
+      alignItems: 'center',
+      borderRadius: 30,
+      width: 300,
+      height: 50,
+      paddingTop: 5
+  },
+  
+  buttonText: {
+    color: '#FFF',
+    fontSize: 30,
+    textAlign: 'center',
+  },
+  
+  gridContainer: {
+    flex: 1,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    padding: 10,
+    marginBottom: 20
+  },
+  gridButtonContainer: {
+    flexBasis: "25%",
+    marginTop: 20,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  gridButton: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  gridIcon: {
+    fontSize: 30,
+    color: "white"
+  },
+  gridLabel: {
+    fontSize: 14,
+    paddingTop: 10,
+    color: "#333"
+  },
+  });
