@@ -1,6 +1,26 @@
+# RUN PROJECT
+
+## Clone project
+ - $git clone https://github.com/eduardofinotti/react-native-examples.git
+
+## Install dependencies
+- $npm install
+
+## Run Android
+- $react-native run-android
+
+## Run Android
+- $react-native run-ios
+
+-------
+
+# HELPERS COMMANDS 
+
+
+## List emulators android
 list android: emulator -list-avds
 
-# CLEAN CACHES
+## CLEAN CACHES
 If you are sure the module exists, try these steps:
  1. Clear watchman watches: watchman watch-del-all
  2. Delete node_modules: rm -rf node_modules and run yarn install
@@ -10,7 +30,7 @@ If you are sure the module exists, try these steps:
 
  <Image source={map} style={ {height: '100%' }} />
 
-# BOTTOM DIALOG
+## BOTTOM DIALOG
  <!-- <RBSheet
     ref={ref => {
     this.Scrollable2 = ref;
