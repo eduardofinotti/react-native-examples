@@ -36,6 +36,12 @@ target 'tests' do
 
 
 
+  pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
+
+  pod 'react-native-maps', :path => '../node_modules/react-native-maps'
+
+  pod 'react-native-geolocation', :path => '../node_modules/@react-native-community/geolocation'
+
   target 'testsTests' do
     inherit! :search_paths
     # Pods for testing
