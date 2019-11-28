@@ -7,7 +7,11 @@ import MapView, {Marker} from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 
 export default class Main extends Component {
-  
+  constructor(props) {
+    super(props);
+
+    this.dialog = this.dialog.bind(this);
+  }
   state = {
     region: null,
     markers:[
@@ -28,25 +32,55 @@ export default class Main extends Component {
 
   show = data => {
 
-    // this.state.markers.push(data);
+    this.state.markers.push(data);
     
-    // this.setState({markers:this.state.markers});
+    this.setState({markers:this.state.markers});
     
     // console.log(this.state)
 
             // ADD TASKS QUANDO SALVANSO NO DISPOSITIVO
-        var local = [...this.state.markers]
-        local.push({
-            lat: data.lat ,
-            lon: data.lon,
-            title: data.title,
-            address: data.address
-        })
+        // var local = [...this.state.markers]
+        // local.push({
+        //     lat: data.lat ,
+        //     lon: data.lon,
+        //     title: data.title,
+        //     address: data.address
+        // })
 
-        this.setState({ markers: local })
+        // this.setState({ markers: local })
 
     // this.componentDidMount()
   }
+
+  dialog = (title) => {
+    console.log(title)
+    return (
+      <RBSheet 
+        ref={ref => { this.Scrollable = ref; }}
+        closeOnDragDown
+        height = { 500 }
+        customStyles={{
+          container: {
+              borderTopLeftRadius: 10,
+              borderTopRightRadius: 10 }}}>
+
+        <ScrollView style={styles.dialog} >
+            <View style={styles.gridContainer} >
+                <View style={styles.containerView}>
+                    <Text style={styles.titleLocal}>{title}</Text>
+                  
+                    <View style={styles.input}>
+                        <Icon name={'map-pin'} size={20} style={styles.icon} />
+                        <TextInput style={styles.addresslabel}></TextInput>
+                    </View>
+                </View>
+            </View>
+
+        </ScrollView>
+      </RBSheet>
+      // this.Scrollable.open()
+    );
+  };
 
   componentDidMount() {
     this.getCurrentPosition();
@@ -90,34 +124,12 @@ export default class Main extends Component {
               <MapView.Marker style={{alignItems: 'center', paddingBottom: 80}}
                 key={index} 
                 coordinate={{latitude: marker.lat, longitude: marker.lon}}
-                onPress={() => this.Scrollable.open()}
+                onPress={() => this.dialog(marker.title)}
                 width={10} height={10}
-                description={marker.description} >
+                description={marker.title} >
                 <Image source={require('./assets/local.png')} style={{height: 50, width: 50}} />
                   
-                  <RBSheet 
-                    ref={ref => { this.Scrollable = ref; }}
-                    closeOnDragDown
-                    height = { 500 }
-                    customStyles={{
-                      container: {
-                          borderTopLeftRadius: 10,
-                          borderTopRightRadius: 10 }}}>
-
-                    <ScrollView style={styles.dialog} >
-                        <View style={styles.gridContainer} >
-                            <View style={styles.containerView}>
-                                <Text style={styles.titleLocal}>{marker.title}</Text>
-                              
-                                <View style={styles.input}>
-                                    <Icon name={'map-pin'} size={20} style={styles.icon} />
-                                    <TextInput style={styles.addresslabel}>{marker.address}</TextInput>
-                                </View>
-                            </View>
-                        </View>
-
-                    </ScrollView>
-                  </RBSheet>
+                  
 
               </MapView.Marker>
             ))}
