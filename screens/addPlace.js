@@ -2,12 +2,26 @@ import React, { Component } from 'react';
 
 import { View, Text, 
     ScrollView, StyleSheet,
-    TouchableOpacity } from 'react-native';
+    TouchableOpacity, TextInput } from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import RBSheet from "react-native-raw-bottom-sheet";
 
 class AddPlace extends Component {
+
+    
+    state={
+        lat: null,
+        lon: null,
+        title: "",
+        address: ""
+    }
+
+    save = () => {
+        // console.log(this.state.valor)
+        const data = { ...this.state }
+        this.props.onSave(data)
+    }
 
   render() {
     return (
@@ -33,6 +47,15 @@ class AddPlace extends Component {
 
                     <View style={styles.gridContainer} >
                         <Text style={styles.title}>Cadastro!</Text>
+                        <TextInput onChangeText={lat => this.setState({ lat })} />
+                        <TextInput onChangeText={lon => this.setState({ lon })} />
+                        <TextInput onChangeText={title => this.setState({ title })} />
+                        <TextInput onChangeText={address => this.setState({ address })} />
+
+                        <TouchableOpacity onPress={this.save}>
+                            <Text style={styles.button}>Salvar</Text>
+                        </TouchableOpacity>
+
                     </View>
 
                 </ScrollView>
