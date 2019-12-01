@@ -6,11 +6,13 @@ import { View, Text,
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import RBSheet from "react-native-raw-bottom-sheet";
+import Modal from 'react-native-modal';
 
 class AddPlace extends Component {
 
     
     state={
+        visible: false,
         lat: null,
         lon: null,
         title: "",
@@ -23,48 +25,79 @@ class AddPlace extends Component {
         this.props.onSave(data)
     }
 
+    constructor(props) {
+        super(props, {
+          scrollOffset: null,
+        });
+    
+        this.scrollViewRef = React.createRef();
+      }
+      handleOnScroll = event => {
+        this.setState({
+          scrollOffset: event.nativeEvent.contentOffset.y,
+        });
+      };
+      handleScrollTo = p => {
+        if (this.scrollViewRef.current) {
+          this.scrollViewRef.current.scrollTo(p);
+        }
+      };
+    
+      open = (title, address) => {
+        this.setState({visible: true, title: title, address: address} )
+      };
+    
+      close = () => this.setState({visible: false} );
+      isVisible = () => this.state.visible;
+
   render() {
     return (
 
-        <View >       
-            <RBSheet 
-                ref={ref => { this.Scrollable = ref; }}
-                closeOnDragDown
-                height = { this.props.tamanho }
-                customStyles={{
-                container: {
-                    borderTopLeftRadius: 10,
-                    borderTopRightRadius: 10,
-                }}}>
-                <ScrollView style={styles.dialog} >
+        <View style={styles.place}> 
 
-                     <View style={styles.containerClose} >
-                        <TouchableOpacity
-                            onPress={() => this.Scrollable.close()}>
-                                <Icon name={"remove"}  size={30} color="white" />
-                        </TouchableOpacity>
-                    </View>    
-
-                    <View style={styles.gridContainer} >
-                        <Text style={styles.title}>Cadastro!</Text>
-                        <TextInput onChangeText={lat => this.setState({ lat })} />
-                        <TextInput onChangeText={lon => this.setState({ lon })} />
-                        <TextInput onChangeText={title => this.setState({ title })} />
-                        <TextInput onChangeText={address => this.setState({ address })} />
-
-                        <TouchableOpacity onPress={this.save}>
-                            <Text style={styles.button}>Salvar</Text>
-                        </TouchableOpacity>
-
-                    </View>
-
-                </ScrollView>
-            </RBSheet>
-    
-            <TouchableOpacity onPress={() => this.Scrollable.open()} 
+            <TouchableOpacity onPress={() => this.open()} 
                             style={styles.buttonView}>
                 <Icon name={"plus"}  size={30} color="#FFF" />
             </TouchableOpacity>
+
+            <Modal
+              testID={'modal'}
+              isVisible={this.state.visible}
+              onSwipeComplete={this.close}
+              swipeDirection={['down']}
+              scrollTo={this.handleScrollTo}
+              scrollOffset={this.state.scrollOffset}
+              scrollOffsetMax={500 - 50} // content height - ScrollView height
+              style={styles.modal}>
+
+              <View style={styles.scrollableModal}>
+                <Text style={{fontSize: 30, color: '#FFF'}} > ___ </Text>
+                <ScrollView
+                  ref={this.scrollViewRef}
+                  onScroll={this.handleOnScroll}
+                  scrollEventThrottle={16}>
+                  <View style={styles.scrollableModalContent1}>
+                    
+                  <View >
+                      <Text style={styles.title}>Cadastro!</Text>
+                      <TextInput onChangeText={lat => this.setState({ lat })} />
+                      <TextInput onChangeText={lon => this.setState({ lon })} />
+                      <TextInput onChangeText={title => this.setState({ title })} />
+                      <TextInput onChangeText={address => this.setState({ address })} />
+
+                      <TouchableOpacity onPress={this.save}>
+                          <Text style={styles.button}>Salvar</Text>
+                      </TouchableOpacity>
+                  </View>
+
+                  </View>
+                </ScrollView>
+              </View>
+            </Modal>
+
+            {/* <AddPlace onSave={this.show} tamanho={800} />  */}
+    
+           
         </View>
     )
   }
@@ -74,6 +107,14 @@ var styles = StyleSheet.create({
 
     dialog: {
         backgroundColor: '#262B56',
+    },
+
+    place: {
+      flex: 1,
+      // flexDirection: "column-reverse",
+
+      // paddingTop: '205%',
+      // paddingLeft: '70%'
     },
 
     containerClose: {
@@ -103,6 +144,30 @@ var styles = StyleSheet.create({
         alignContent: 'center',
         alignItems: 'center'
     },
+
+    modal: {
+        justifyContent: 'flex-end',
+        margin: 0,
+      },
+      scrollableModal: {
+        //tamanho do dialog
+        height: '90%',
+        backgroundColor: '#262B56',
+        borderRadius: 40,
+        alignItems: 'center',
+      },
+      scrollableModalContent1: {
+        //tamanho do scroll
+        // height: '100%',
+        backgroundColor: '#262B56',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 40
+      },
+      scrollableModalText1: {
+        fontSize: 20,
+        color: 'white',
+      },
 
 })
 
