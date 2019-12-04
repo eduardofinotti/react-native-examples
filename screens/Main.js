@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { TouchableOpacity, StyleSheet, Image, View, Alert, Button, Text, TextInput } from 'react-native';
 import AddPlace from './addPlace'
-import MapView, {Marker} from 'react-native-maps';
+import MapView from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 import Modal from 'react-native-modal';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -104,20 +104,22 @@ export default class Main extends Component {
       <View style={styles.container}> 
           
           <MapView 
+            provider={'google'} 
+            showsUserLocation={true}
+            showsMyLocationButton={true}
             style={styles.mapView}
             region={ this.state.region }
             showsUserLocation={true}
-            loadingEnabled={true} 
-            howsMyLocationButton={true}>
+            loadingEnabled={true} >
 
             {this.state.markers.map((marker, index) => (
               <MapView.Marker style={{alignItems: 'center', paddingBottom: 80}}
                 key={index} 
                 coordinate={{latitude: marker.lat, longitude: marker.lon}}
                 onPress={() => this.open(marker.title, marker.address)}
-                width={10} height={10}
+                width={30} height={30}
                 description={marker.description} >
-                <Image source={require('./assets/local.png')} style={{height: 50, width: 50}} />
+                <Image source={require('./assets/local.png')} style={{height: 40, width: 40}} />
               </MapView.Marker>
             ))}
 
@@ -187,7 +189,6 @@ const styles = StyleSheet.create({
     alignContent: "center",
     justifyContent: "center",
     position: 'absolute',
-    
   },
 
   container3: {
@@ -296,5 +297,18 @@ buttonView: {
   backgroundColor:'red',
   borderRadius:50,
 },
+
+buttonView2: {
+  borderColor:'#FFF',
+  width:20,
+  height:20,
+  backgroundColor:'red',
+  borderRadius:50,
+},
+
+mylocation: {
+  padding: 60
+},
+
 
 });
