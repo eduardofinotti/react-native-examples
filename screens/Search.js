@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, View, Text, TextInput } from 'react-native';
+import { TouchableOpacity, StyleSheet, View, Text, TextInput } from 'react-native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class Search extends Component {
 
     state={
         lat: null,
         lon: null,
-        searchFocused: false
+        searchFocused: false,
+        useLocation: false
     }
 
     changeLocation = (lat, lon) => {
@@ -30,17 +32,17 @@ export default class Search extends Component {
                 textInputProps={{
                     autoCapitalize: 'none',
                     autoCorrect: false,
-                    onFocus: () => { this.setState({ searchFocused: true})},
-                    onBlur: () => { this.setState({ searchFocused: false})}
+                    onFocus: () => { this.setState({ searchFocused: true })},
+                    onBlur: () => { this.setState({ searchFocused: false })}
                 }}
                 listViewDisplayed={this.state.searchFocused}
                 fetchDetails
                 enablePoweredByContainer={false}
-                styles={{
+                styles={{ flex: 1,
                     container:{
                         // position: 'absolute',
                         // top: Platform.select({ ios: 90, android: 40 }),
-                        top: 90,
+                        top: 65,
                         width: '90%',
                     },
                     textInputContainer:{
@@ -92,9 +94,10 @@ export default class Search extends Component {
                         padding: 20,
                         height: 55
                     }
-                }}
-            />
+                }}>
 
+               </GooglePlacesAutocomplete>
       );
   }
 }
+

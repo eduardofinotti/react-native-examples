@@ -50,22 +50,6 @@ class AddPlace extends Component {
       close = () => this.setState({visible: false} );
       isVisible = () => this.state.visible;
 
-      changeLocation = data => {
-        console.log(data.lat, data.lon)
-        // try {
-        //   const region = {
-        //     latitude: data.lat,
-        //     longitude: data.lon,
-        //     latitudeDelta: 0.06,
-        //     longitudeDelta: 0.06,
-        //   }
-        this.setState({ lat: data.lat, lon: data.lon });
-    
-        // } catch(e) {
-        //   alert(e.message || "");
-        // }
-      }
-
   render() {
     return (
 
@@ -88,18 +72,35 @@ class AddPlace extends Component {
 
               <View style={styles.scrollableModal}>
                 <Text style={{fontSize: 30, color: '#FFF'}} > ___ </Text>
-                                  
-                <Search onSearch={this.changeLocation}/>
+                <ScrollView
+                  ref={this.scrollViewRef}
+                  onScroll={this.handleOnScroll}
+                  scrollEventThrottle={16}>
+                  <View style={styles.scrollableModalContent1}>
+                    
+                  <View >
 
-                <TextInput onChangeText={title => this.setState({ title })} />
-                <TextInput onChangeText={address => this.setState({ address })} />
+                  <View style={styles.container2}>
+                    <Search onSearch={this.changeLocation}/>
+                  </View>
+                      <Text style={styles.title}>Cadastro!</Text>
+                      <TextInput onChangeText={lat => this.setState({ lat })} />
+                      <TextInput onChangeText={lon => this.setState({ lon })} />
+                      <TextInput onChangeText={title => this.setState({ title })} />
+                      <TextInput onChangeText={address => this.setState({ address })} />
 
-                <TouchableOpacity onPress={this.save}>
-                    <Text style={styles.button}>Salvar</Text>
-                </TouchableOpacity>
-                  
+                      <TouchableOpacity onPress={this.save}>
+                          <Text style={styles.button}>Salvar</Text>
+                      </TouchableOpacity>
+                  </View>
+
+                  </View>
+                </ScrollView>
               </View>
-            </Modal>    
+            </Modal>
+
+            {/* <AddPlace onSave={this.show} tamanho={800} />  */}
+    
            
         </View>
     )
@@ -114,6 +115,10 @@ var styles = StyleSheet.create({
 
     place: {
       flex: 1,
+      // flexDirection: "column-reverse",
+
+      // paddingTop: '205%',
+      // paddingLeft: '70%'
     },
 
     containerClose: {
@@ -151,13 +156,9 @@ var styles = StyleSheet.create({
       scrollableModal: {
         //tamanho do dialog
         height: '90%',
-        width: '100%',
         backgroundColor: '#262B56',
         borderRadius: 40,
         alignItems: 'center',
-        alignContent: "center",
-        justifyContent: "center",
-        margin: 0,
       },
       scrollableModalContent1: {
         //tamanho do scroll

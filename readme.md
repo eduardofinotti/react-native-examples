@@ -59,3 +59,5 @@ If you are sure the module exists, try these steps:
     </ScrollView>
 </RBSheet> -->
 
+## Version google maps on pod
+https://github.com/OurVoiceUSA/HelloVoter/blob/master/mobile/patches/react-native-google-places%2B3.1.2.patch
