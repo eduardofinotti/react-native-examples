@@ -110,7 +110,10 @@ export default class Main extends Component {
             style={styles.mapView}
             region={ this.state.region }
             showsUserLocation={true}
-            loadingEnabled={true} >
+            loadingEnabled={true} 
+            zoomEnabled={true}
+            enableZoomControl={true}
+            >
 
             {this.state.markers.map((marker, index) => (
               <MapView.Marker style={{alignItems: 'center', paddingBottom: 80}}
@@ -193,8 +196,8 @@ const styles = StyleSheet.create({
 
   container3: {
     position: 'absolute',//use absolute position to show button on top of the map
-    top: '85%', //for center align
-    right: '10%',
+    top: '87%', //for center align
+    right: '20%',
     alignSelf: 'flex-end' //for align to right
   },
 

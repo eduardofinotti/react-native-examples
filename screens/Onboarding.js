@@ -1,43 +1,82 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, LinearGradient, StyleSheet, Image, View, Button, Text, TextInput, ImageBackground } from 'react-native';
-import onboarding from './assets/onboarding.png'
+import {
+  View,
+  Text,
+  StyleSheet,
+  Animated,
+  Dimensions,
+  StatusBar,
+} from 'react-native'
+
+import {
+  Card,
+  Header,
+  NextButton,
+  ContentContainer,
+  GradientBackgrounds,
+} from 'react-native-onboarding-component';
 
 export default function Onboarding({ navigation }) {
 
-    return (
+  return (
       <View style={styles.container}>
-        <ImageBackground source={onboarding}  style={{width: '100%', height: '100%'}} >
-         
-          
+        
+            <View style={styles.page}>
+              <Header>
+                {/* <Card
+                  style={styles.card}>
+                </Card> */}
+              </Header>
 
-             <TouchableOpacity style={styles.oi} onPress={() => navigation.replace('Main') }>
-                                <Text>Vai</Text>
-                        </TouchableOpacity>
+              {/* <ContentContainer> */}
+                <Text style={styles.title}>TITLE</Text>
+                <Text style={styles.description}>OLA</Text>
+                
+              {/* </ContentContainer> */}
 
-        </ImageBackground>
+              <NextButton
+                title="Continue"
+                style={{ color: 'black' }}
+                
+                onPress={() => {
+                    navigation.replace('Main')
+                  
+                }}
+              />
+            </View>
+          )}
       </View>
-      );
-  
+    );
 }
+  
+
 
 const styles = StyleSheet.create({
-
   container: {
-
     flex: 1,
-    alignContent: 'center',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    flexDirection: "column-reverse"
-
+  },
+  page: {
+    width: 500,
+    backgroundColor: 'transparent',
+    flexDirection: 'column',
   },
 
-  oi: {
-    padding: 90,
-    // alignContent: 'flex-start',
-    // alignItems: 'flex-start',
-    // justifyContent: 'flex-start',
+  card: {
+    borderRadius: 0,
   },
 
-
+  title: {
+    fontSize: 26,
+    fontWeight: '300',
+    marginBottom: 30,
+    color: 'black',
+  },
+  description: {
+    fontWeight: '300',
+    color: 'black',
+    textAlign: 'center',
+  },
+  gradientBackground: {
+    height: '56%',
+  },
 });
