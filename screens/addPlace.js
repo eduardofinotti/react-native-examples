@@ -89,14 +89,16 @@ class AddPlace extends Component {
               <View style={styles.scrollableModal}>
                 <Text style={{fontSize: 30, color: '#FFF'}} > ___ </Text>
                                   
-                <Search onSearch={this.changeLocation}/>
+                <View style={styles.container2}>
+                  <Search onSearch={this.changeLocation}/>
+                </View>
 
-                <TextInput onChangeText={title => this.setState({ title })} />
+                {/* <TextInput onChangeText={title => this.setState({ title })} />
                 <TextInput onChangeText={address => this.setState({ address })} />
 
                 <TouchableOpacity onPress={this.save}>
                     <Text style={styles.button}>Salvar</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
                   
               </View>
             </Modal>    
@@ -107,7 +109,12 @@ class AddPlace extends Component {
 }
 
 var styles = StyleSheet.create({
-
+  container2: {
+    flexDirection: "row",
+    alignContent: "flex-start",
+    justifyContent: "flex-start",
+    position: 'absolute',
+  },
     dialog: {
         backgroundColor: '#262B56',
     },
@@ -156,7 +163,7 @@ var styles = StyleSheet.create({
         borderRadius: 40,
         alignItems: 'center',
         alignContent: "center",
-        justifyContent: "center",
+        // justifyContent: "center",
         margin: 0,
       },
       scrollableModalContent1: {
