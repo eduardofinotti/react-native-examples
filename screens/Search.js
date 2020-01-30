@@ -42,7 +42,7 @@ export default class Search extends Component {
                     container:{
                         // position: 'absolute',
                         // top: Platform.select({ ios: 90, android: 40 }),
-                        top: 65,
+                        top: '20%',
                         width: '90%',
                     },
                     textInputContainer:{
@@ -51,7 +51,7 @@ export default class Search extends Component {
                         height: 54,
                         marginHorizontal: 20,
                         borderTopWidth: 0,
-                        borderBottonWidth:0,
+                        borderBottonWidth: 0,
 
                     },
                     textInput:{
@@ -74,7 +74,7 @@ export default class Search extends Component {
                         borderWidth: 1,
                         borderColor: '#DDD',
                         fontSize: 18,
-                        color: 'red'
+                        color: 'black'
                     },
                     listView: {
                         borderWidth: 1,

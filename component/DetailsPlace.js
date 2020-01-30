@@ -1,10 +1,10 @@
-
 import React from 'react';
-import { Image, View, StyleSheet, Text, TouchableOpacity, TextInput, } from 'react-native';
+import { Image, View, StyleSheet, Text, Button, TextInput, } from 'react-native';
 import Modal from 'react-native-modal';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import LinearGradient from 'react-native-linear-gradient'
 import osso from '../screens/assets/osso.png'
+import { FlatGrid } from 'react-native-super-grid';
 
 export default function component(props) {
   
@@ -25,27 +25,31 @@ export default function component(props) {
 
         <View style={styles.scrollableModal}>
           <Text style={{fontSize: 30, color: '#FFF'}} > ___ </Text>
+          
           <View style={styles.scrollableModalContent1}>
 
-            <View style={{alignItems:'center'}}>
+            <View style={{alignItems:'center'}} >
               <Text style={styles.scrollableModalText1}>{props.place.title}</Text>
             </View>
             
-            <View style={{paddingTop:20}}>
+            <View style={{paddingTop:20, alignItems:'center'}}>
               <View style={styles.input}>
-                  <Icon name={'map-pin'} size={20} />
-                  <TextInput style={styles.addresslabel}>{props.place.address}</TextInput>
+                <Icon name={'map-pin'} size={20} />
+                <TextInput editable={false} style={styles.addresslabel}>{props.place.address}</TextInput>
               </View>
             </View>
 
-            <View style={styles.itens}>
-              <TouchableOpacity style={{}}>
-                  <LinearGradient style={styles.contentCarac} colors={['#F7651C', '#F71C73']}>
-                      <Image style={styles.osso} source={osso}></Image>
-                  </LinearGradient>
-              </TouchableOpacity>
-            </View>
-              
+            <FlatGrid itemDimension={110} items={props.place.carac} renderItem={({ item, index }) => (      
+              <View opacity={item.value?1.0:0.2} style={{alignItems:'center', paddingTop: 10 }} >          
+              <LinearGradient style={styles.contentCarac} colors={['#F7651C', '#F71C73']}>
+                  <Image style={styles.osso} source={osso}></Image>
+                  <Text style={{color: 'white', fontSize: 13, fontWeight: 'bold', textAlign: 'center', }} >
+                    {item.name}
+                  </Text>
+              </LinearGradient>
+              </View>
+            )}/>
+
           </View>
         </View>
 
@@ -56,30 +60,24 @@ export default function component(props) {
 }
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1, 
-      justifyContent: 'flex-end',
-      alignItems: 'center',
-      backgroundColor: '#F5FCFF',
-      paddingBottom: 30,
-      width: '100%'
-    },
-  
+
     modal: {
       justifyContent: 'flex-end',
       margin: -5,
     },
     scrollableModal: {
       //tamanho do dialog
-      height: '60%',
+      // height: '60%',
       width: '100%',
       backgroundColor: '#262B56',
-      borderRadius: 40,
+      borderTopStartRadius: 30,
+      borderTopEndRadius: 30,
       alignItems: 'center',
+      height: 340,
     },
     scrollableModalContent1: {
       //tamanho do scroll
-      // height: '100%',
+      // height: '60%',
       backgroundColor: '#262B56',
       justifyContent: 'center',
     },
@@ -92,42 +90,37 @@ const styles = StyleSheet.create({
       alignItems: 'center'
     },
     input: {
-      width: '100%',
+      width: '90%',
       height: 40,
       backgroundColor: '#EEE',
       borderRadius: 20,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: "flex-start",
+      alignContent: 'center',
       paddingLeft: 20,
     },
 
 addresslabel: {
   textAlign: "left",
-  width: '80%',
   fontSize: 17,
-  color: 'black',
+  color: 'gray',
   paddingLeft: 20
 },
-itens: {
-  flex: 1,
-  // flexDirection: "row",
-  width: '100%',
-  paddingTop: 20
-},
+
 contentCarac: {
-  width: 150,
-  height: 90,
-  borderRadius: 20,
+  width: 100,
+  height: 60,
+  borderRadius: 15,
   borderColor: 'transparent',
   backgroundColor: "#F46721",
   alignItems: 'center',
   alignContent: 'center',
-  justifyContent: 'center'
+  justifyContent: 'center',
 },
 osso: {
-  width: 40,
-  height: 40,
+  width: 25,
+  height: 25,
 },
     
   });
